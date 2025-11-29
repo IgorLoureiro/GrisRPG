@@ -1,0 +1,7 @@
+﻿services:
+  grisapi:
+    image: grisapi
+    build:
+      context: .
+      dockerfile: GrisAPI/Dockerfile
+

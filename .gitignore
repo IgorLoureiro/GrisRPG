@@ -1,0 +1,39 @@
+# Build and cache folders
+bin/
+obj/
+out/
+build/
+
+# IDE files
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider / JetBrains
+*.iml
+.idea/
+.idea/**/*
+
+# Logs
+*.log
+
+# Environment/Secrets
+appsettings.Development.json
+*.Secrets.json
+.env
+*.env
+
+# System files
+Thumbs.db
+.DS_Store
+
+# Publish output
+/publish/
+
+# Node modules
+node_modules/
+dist/
+

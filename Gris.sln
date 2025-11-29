@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrisAPI", "GrisAPI\GrisAPI.csproj", "{C583E8BA-A323-43BE-8260-DAD7ADA6D76E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{056AC404-FAA3-4F02-84A5-32EC91671A34}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrisAPITests", "GrisAPITests\GrisAPITests.csproj", "{F2ECB11F-C387-486A-8A0A-963312965D70}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C583E8BA-A323-43BE-8260-DAD7ADA6D76E} = {C583E8BA-A323-43BE-8260-DAD7ADA6D76E}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C583E8BA-A323-43BE-8260-DAD7ADA6D76E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C583E8BA-A323-43BE-8260-DAD7ADA6D76E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C583E8BA-A323-43BE-8260-DAD7ADA6D76E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C583E8BA-A323-43BE-8260-DAD7ADA6D76E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2ECB11F-C387-486A-8A0A-963312965D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2ECB11F-C387-486A-8A0A-963312965D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2ECB11F-C387-486A-8A0A-963312965D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2ECB11F-C387-486A-8A0A-963312965D70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

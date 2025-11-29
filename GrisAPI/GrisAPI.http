@@ -1,0 +1,6 @@
+@GrisAPI_HostAddress = http://localhost:5288
+
+GET {{GrisAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
