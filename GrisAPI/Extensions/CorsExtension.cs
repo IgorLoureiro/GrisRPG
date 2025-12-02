@@ -8,7 +8,7 @@ public static class CorsExtension
         {
             options.AddPolicy("CorsPolicy", policy =>
             {
-                policy.WithOrigins("http://localhost:5173") //Allowed Website
+                policy.WithOrigins("http://localhost:7153") //Allowed Website
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();

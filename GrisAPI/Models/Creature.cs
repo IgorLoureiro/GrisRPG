@@ -12,7 +12,7 @@ public class Creature
     
     //Navigation Property
     public int ExtraDeckId { get; set; }
-    public ExtraDeck ExtraDeck { get; set; }
+    public ExtraDeck ExtraDeck { get; set; } = new ExtraDeck();
     
     //Join Tables
     public ICollection<User> Users { get; set; } = new List<User>();

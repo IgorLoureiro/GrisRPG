@@ -12,6 +12,11 @@ public sealed class UserRepository(ApplicationDbContext context) : IUserReposito
     {
         return await _context.Users.FirstOrDefaultAsync(x => x.Name == username);
     }
+    
+    public async Task<User?> GetUserByIdAsync(int id)
+    {
+        return await _context.Users.FindAsync(id);
+    }
 
     public async Task UpdateUserAsync(User user)
     {
