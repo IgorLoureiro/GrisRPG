@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using GrisAPI.DTOs;
 using GrisAPI.Models;
 using GrisAPI.Repositories.CreatureRepository;
 using GrisAPI.Repositories.UserRepository;
@@ -48,5 +49,96 @@ public class CreatureServiceTests
         //Assert
         Assert.That(result, !Is.Null);
         Assert.That(result.Id, Is.EqualTo(creature.Id));
+    }
+    
+    [Test]
+    public async Task GetCreatureById_ExistentId_ReturnCreatureDto()
+    {
+        //Arrange
+        var creature = new Creature
+        {
+            Id = 11,
+            Name = "Test Creature",
+        };
+        
+        _mockCreatureRepository.Setup(x => x.GetCreatureByIdAsync(It.IsAny<Int32>())).ReturnsAsync(creature);
+        
+        //Act
+        var result = await _sut.GetCreatureById(creature.Id);
+        
+        //Assert
+        Assert.That(result, !Is.Null);
+        Assert.That(result, Is.TypeOf<CreatureDto>());
+        Assert.That(result.Id, Is.EqualTo(creature.Id));
+    }
+    
+    [Test]
+    public async Task GetAllCreaturesByUserId_ExistentId_ReturnCreaturesDtoList()
+    {
+        //Arrange
+        var creatureDtoList = new List<CreatureDto>()
+        {
+            new CreatureDto()
+            {
+                Id = 11,
+                Name = "Test Creature",
+            }
+        };
+        
+        _mockCreatureRepository.Setup(x => x.GetAllCreaturesFromUser(It.IsAny<Int32>())).ReturnsAsync(creatureDtoList);
+        
+        //Act
+        var result = await _sut.GetAllCreaturesByUserId(1);
+        
+        //Assert
+        Assert.That(result, !Is.Null);
+        Assert.That(result.Count, Is.GreaterThan(0));
+        Assert.That(result, Is.TypeOf<List<CreatureDto>>());
+    }
+    
+    [Test]
+    public async Task UpdateCreature_ExistingCreature_SuccessfullyUpdates()
+    {
+        //Arrange
+        var creature = new Creature
+        {
+            Id = 11,
+            Name = "Test Creature",
+        };
+
+        var updatedCreature = new CreatureDto
+        {
+            Id = 11,
+            Name = "Updated Creature",
+        };
+        
+        _mockCreatureRepository.Setup(x => x.GetCreatureByIdAsync(It.IsAny<Int32>())).ReturnsAsync(creature);
+        
+        //Act
+        var result = await _sut.UpdateCreature(updatedCreature);
+        
+        //Assert
+        Assert.That(result, !Is.Null);
+        Assert.That(result, Is.True);
+    }
+    
+    [Test]
+    public async Task DeleteCreature_ExistingCreature_SuccessfullyDeletes()
+    {
+        //Arrange
+        var creature = new Creature
+        {
+            Id = 11,
+            Name = "Test Creature",
+        };
+        
+        _mockCreatureRepository.Setup(x => x.GetCreatureByIdAsync(It.IsAny<Int32>())).ReturnsAsync(creature);
+        
+        //Act
+        var result = await _sut.DeleteCreatureById(creature.Id);
+        
+        //Assert
+        Assert.That(result, !Is.Null);
+        Assert.That(result, Is.True);
     }
 }
