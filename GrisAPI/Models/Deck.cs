@@ -9,7 +9,6 @@ public class Deck
     [Required]
     [MaxLength(100)]
     public string Name { get; set; } = string.Empty;
-    public int NumberOfCards { get; set; }
     
     //Join Tables
     public ICollection<Card> Cards { get; set; } = new List<Card>();

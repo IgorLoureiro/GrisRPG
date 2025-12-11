@@ -11,7 +11,6 @@ public class Creature
     public string Name { get; set; } = string.Empty;
     
     //Navigation Property
-    public int ExtraDeckId { get; set; }
     public ExtraDeck ExtraDeck { get; set; } = new ExtraDeck();
     
     //Join Tables

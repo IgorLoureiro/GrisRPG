@@ -10,12 +10,10 @@ public class CreatureDto
     {
         Id = creature.Id;
         Name = creature.Name;
-        ExtraDeck = creature.ExtraDeck;
-        ExtraDeckId = creature.ExtraDeckId;
+        ExtraDeck = new ExtraDeckDto(creature.ExtraDeck);
     }
     
     public int Id { get; init; }
     public string Name { get; set; } = string.Empty;
-    public int ExtraDeckId { get; set; }
-    public ExtraDeck ExtraDeck { get; set; } = new ExtraDeck();
+    public ExtraDeckDto ExtraDeck { get; set; } = new ExtraDeckDto();
 }
