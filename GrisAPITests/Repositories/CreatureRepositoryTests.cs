@@ -22,8 +22,8 @@ public class CreatureRepositoryTests
             .Options;
 
         _dbContext = new ApplicationDbContext(options);
-        _dbContext.Database.EnsureCreated();
         _dbContext.Database.EnsureDeleted();
+        _dbContext.Database.EnsureCreated();
         
         _sut = new CreatureRepository(_dbContext);
     }

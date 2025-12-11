@@ -14,8 +14,8 @@ public sealed class CreatureConfiguration : IEntityTypeConfiguration<Creature>
 
         builder
             .HasOne(x => x.ExtraDeck)
-            .WithOne()
-            .HasForeignKey<Creature>(x => x.ExtraDeckId)
+            .WithOne(e  => e.Creature)
+            .HasForeignKey<ExtraDeck>(e => e.CreatureId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

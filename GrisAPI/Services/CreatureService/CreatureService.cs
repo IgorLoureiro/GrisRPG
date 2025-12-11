@@ -15,19 +15,12 @@ public sealed class CreatureService(IUserRepository userRepository, ICreatureRep
         var creature = new Creature
         {
             Name = creatureName,
-            ExtraDeck = new ExtraDeck(),
         };
         
         creature.Users.Add(user!);
         var creatureModel = await creatureRepository.CreateAsync(creature);
 
-        return new CreatureDto()
-        {
-            Name = creatureModel.Name,
-            ExtraDeck = creatureModel.ExtraDeck,
-            Id = creatureModel.Id,
-            ExtraDeckId = creatureModel.ExtraDeckId,
-        };
+        return new CreatureDto(creatureModel);
     }
     
     public async Task<CreatureDto?> GetCreatureById(int id)

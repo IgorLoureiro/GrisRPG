@@ -21,7 +21,7 @@ public sealed class CreatureController(ICreatureService creatureService) : Contr
     }
     
     [Authorize]
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<CreatureDto>> GetCreatureById(int id)
     {
         var creature = await creatureService.GetCreatureById(id);
@@ -51,7 +51,7 @@ public sealed class CreatureController(ICreatureService creatureService) : Contr
     }
     
     [Authorize]
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteCreature(int id)
     {
         var wasDeleted = await creatureService.DeleteCreatureById(id);
