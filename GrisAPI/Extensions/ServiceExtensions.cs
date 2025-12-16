@@ -7,6 +7,7 @@ using GrisAPI.Repositories.UserRepository;
 using GrisAPI.Services.AuthenticationService;
 using GrisAPI.Services.CreatureService;
 using GrisAPI.Services.ExtraDeckService;
+using GrisAPI.Services.JokerService;
 using Microsoft.EntityFrameworkCore;
 
 namespace GrisAPI.Extensions;
@@ -18,6 +19,7 @@ public static class ServiceExtensions
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<ICreatureService, CreatureService>();
         services.AddScoped<IExtraDeckService, ExtraDeckService>();
+        services.AddScoped<IJokerService, JokerService>();
         return services;
     }
     

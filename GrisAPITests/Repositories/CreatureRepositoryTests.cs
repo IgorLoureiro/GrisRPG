@@ -27,6 +27,13 @@ public class CreatureRepositoryTests
         
         _sut = new CreatureRepository(_dbContext);
     }
+    
+    [TearDown]
+    public void TearDown()
+    {
+        _dbContext.Database.EnsureDeleted();
+        _dbContext.Dispose();
+    }
 
     [Test]
     public async Task CreateAsync_ValidCreatureModel_CreatesSuccessfully()

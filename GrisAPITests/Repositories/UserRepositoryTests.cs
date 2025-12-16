@@ -26,6 +26,13 @@ namespace GrisAPITests.Repositories
 
             _repository = new UserRepository(_dbContext);
         }
+        
+        [TearDown]
+        public void TearDown()
+        {
+            _dbContext.Database.EnsureDeleted();
+            _dbContext.Dispose();
+        }
 
         [Test]
         public async Task GetUserByUsernameAsync_ShouldReturnUser_WhenUserExists()

@@ -12,4 +12,35 @@ public sealed class JokerRepository(ApplicationDbContext context) : IJokerReposi
             .Where(x => jokersId.Contains(x.Id))
             .ToListAsync();
     }
+
+    public async Task<Joker?> GetJokerById(int id)
+    {
+        return await context.Jokers.FindAsync(id);
+    }
+
+    public async Task<List<Joker>> GetJokersByName(string name)
+    {
+        return await context.Jokers
+            .Where(x => x.Name.Contains(name))
+            .ToListAsync();
+    }
+
+    public async Task<Joker> AddJoker(Joker joker)
+    {
+        var createdJoker = await context.Jokers.AddAsync(joker);
+        await context.SaveChangesAsync();
+        return createdJoker.Entity;
+    }
+
+    public async Task UpdateJoker(Joker joker)
+    {
+        context.Jokers.Update(joker);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task DeleteJoker(Joker joker)
+    {
+        context.Jokers.Remove(joker);
+        await context.SaveChangesAsync();
+    }
 }
