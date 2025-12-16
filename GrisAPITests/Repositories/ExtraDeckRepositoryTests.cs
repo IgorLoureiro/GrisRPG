@@ -26,6 +26,13 @@ public sealed class ExtraDeckRepositoryTests
         
         _sut = new ExtraDeckRepository(_dbContext);
     }
+    
+    [TearDown]
+    public void TearDown()
+    {
+        _dbContext.Database.EnsureDeleted();
+        _dbContext.Dispose();
+    }
 
     [Test]
     public async Task GetExtraDeckById_ValidId_ReturnsExtraDeck()
