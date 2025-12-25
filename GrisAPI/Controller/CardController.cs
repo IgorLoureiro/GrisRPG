@@ -31,7 +31,7 @@ public sealed class CardController(ICardService cardService) : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("GetCardsById")]
+    [HttpPost("GetCardsByIds")]
     public async Task<ActionResult<List<CardDto>>> GetCardsById([FromBody] List<int> ids)
     {
         return Ok(await cardService.GetCardsById(ids));

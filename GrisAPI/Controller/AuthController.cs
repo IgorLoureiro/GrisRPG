@@ -14,16 +14,16 @@ namespace GrisAPI.Controller;
 public sealed class AuthController(IAuthenticationService authenticationService) : ControllerBase
 {
     [HttpPost("Login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequest)
+    public async Task<ActionResult> Login([FromBody] LoginRequestDto loginRequest)
     {
         var loginResponse = await authenticationService.LoginRequest(loginRequest);
 
         if (loginResponse.IsBlocked)
         {
-            return StatusCode(StatusCodes.Status403Forbidden);
+            return Forbid();
         } else if (loginResponse.NameOrPasswordInvalid)
         {
-            return StatusCode(StatusCodes.Status401Unauthorized);
+            return Unauthorized();
         }
 
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,

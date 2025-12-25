@@ -12,7 +12,7 @@ namespace GrisAPI.Controller;
 public sealed class JokerController(IJokerService jokerService) : ControllerBase
 {
     [Authorize]
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<JokerDto>> GetJokerById(int id)
     {
         var results = await jokerService.GetJokerById(id);
@@ -30,8 +30,8 @@ public sealed class JokerController(IJokerService jokerService) : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("GetJokersByName")]
-    public async Task<ActionResult<List<JokerDto>>> GetJokersByName([FromBody] string name)
+    [HttpGet("GetJokersByName/{name}")]
+    public async Task<ActionResult<List<JokerDto>>> GetJokersByName(string name)
     {
         return Ok(await jokerService.GetJokersByName(name));
     }
@@ -59,7 +59,7 @@ public sealed class JokerController(IJokerService jokerService) : ControllerBase
     }
     
     [Authorize]
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteJoker(int id)
     {
         var result = await jokerService.DeleteJoker(id);
