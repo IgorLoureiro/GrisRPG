@@ -8,6 +8,18 @@ namespace GrisAPI.Services.CreatureService;
 public sealed class CreatureService(IUserRepository userRepository, ICreatureRepository creatureRepository)
     : ICreatureService
 {
+    public async Task<CreatureFilterResponse> GetFilteredCreatures(CreatureFilterRequest filter, int userId)
+    {   
+        var creatures = await creatureRepository.GetFilteredCreatures(filter, userId);
+        var maxNumberOfPages = Convert.ToInt32(Math.Ceiling((double)creatures.Count / filter.Quantity));
+
+        return new CreatureFilterResponse
+        {
+            Creatures = creatures,
+            MaxNumberOfPages = maxNumberOfPages
+        };
+    }
+    
     public async Task<CreatureDto> CreateCreature(string creatureName, int userId)
     {   
         var user = await userRepository.GetUserByIdAsync(userId);
@@ -27,11 +39,6 @@ public sealed class CreatureService(IUserRepository userRepository, ICreatureRep
     {
         var creatureModel = await creatureRepository.GetCreatureByIdAsync(id);
         return creatureModel is null ? null : new CreatureDto(creatureModel);
-    }
-
-    public async Task<List<CreatureDto>> GetAllCreaturesByUserId(int userId)
-    {
-        return await creatureRepository.GetAllCreaturesFromUser(userId);
     }
 
     public async Task<bool> UpdateCreature(CreatureDto creatureDto)

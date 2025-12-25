@@ -5,6 +5,7 @@ using GrisAPI.Repositories.CardRepository;
 using GrisAPI.Repositories.ExtraDeckRepository;
 using GrisAPI.Repositories.JokerRepository;
 using GrisAPI.Services.ExtraDeckService;
+using MockQueryable;
 using Moq;
 
 namespace GrisAPITests.Services;
@@ -104,7 +105,7 @@ public sealed class ExtraDeckServiceTests
         };
         
         _extraDeckRepositoryMock.Setup(x => x.GetExtraDeckById(extraDeckId)).ReturnsAsync(extraDeckModel);
-        _cardRepositoryMock.Setup(x => x.GetCardsById(It.IsAny<IEnumerable<int>>())).ReturnsAsync(cardsList);
+        _cardRepositoryMock.Setup(x => x.GetCardsById(It.IsAny<IEnumerable<int>>())).Returns(cardsList.BuildMock());
         _jokerRepositoryMock.Setup(x => x.GetJokersById(It.IsAny<IEnumerable<int>>())).ReturnsAsync(jokersList);
         
         //Act

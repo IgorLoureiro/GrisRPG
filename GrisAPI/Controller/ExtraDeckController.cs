@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using GrisAPI.DTOs;
 using GrisAPI.Services.ExtraDeckService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GrisAPI.Controller;
@@ -10,6 +11,7 @@ namespace GrisAPI.Controller;
 [ExcludeFromCodeCoverage]
 public sealed class ExtraDeckController(IExtraDeckService extraDeckService) : ControllerBase
 {
+    [Authorize]
     [HttpGet("{id:int}")]
     public async Task<ActionResult<ExtraDeckDto?>> GetExtraDeckById(int id)
     {
@@ -20,6 +22,7 @@ public sealed class ExtraDeckController(IExtraDeckService extraDeckService) : Co
         return result;
     }
     
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult> UpdateExtraDeck(ExtraDeckDto extraDeck)
     {

@@ -25,6 +25,39 @@ public class CreatureServiceTests
     }
 
     [Test]
+    public async Task GetFilteredCreatures_validFilterAndUserId_ReturnsCreatureFilterResponseWithFilledList()
+    {
+        //Arrange
+        var creatureDtoList = new List<CreatureDto>
+        {
+            new CreatureDto
+            {
+                Id = 0,
+                Name = "TestCreature"
+            }
+        };
+
+        var filter = new CreatureFilterRequest
+        {
+            Name = null!,
+            CurrentPage = 0,
+            Quantity = 10
+        };
+        
+        _mockCreatureRepository.Setup(x => 
+            x.GetFilteredCreatures(It.IsAny<CreatureFilterRequest>(), It.IsAny<int>()))
+            .ReturnsAsync(creatureDtoList);
+        
+        //Act
+        var result = await _sut.GetFilteredCreatures(filter, 0);
+        
+        //Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Creatures, Has.Count.EqualTo(creatureDtoList.Count));
+        Assert.That(result.MaxNumberOfPages, Is.GreaterThan(0));
+    }
+
+    [Test]
     public async Task CreateCreature_validInput_CompletesSucessfully()
     {
         //Arrange
@@ -70,30 +103,6 @@ public class CreatureServiceTests
         Assert.That(result, !Is.Null);
         Assert.That(result, Is.TypeOf<CreatureDto>());
         Assert.That(result.Id, Is.EqualTo(creature.Id));
-    }
-    
-    [Test]
-    public async Task GetAllCreaturesByUserId_ExistentId_ReturnCreaturesDtoList()
-    {
-        //Arrange
-        var creatureDtoList = new List<CreatureDto>()
-        {
-            new CreatureDto()
-            {
-                Id = 11,
-                Name = "Test Creature",
-            }
-        };
-        
-        _mockCreatureRepository.Setup(x => x.GetAllCreaturesFromUser(It.IsAny<Int32>())).ReturnsAsync(creatureDtoList);
-        
-        //Act
-        var result = await _sut.GetAllCreaturesByUserId(1);
-        
-        //Assert
-        Assert.That(result, !Is.Null);
-        Assert.That(result.Count, Is.GreaterThan(0));
-        Assert.That(result, Is.TypeOf<List<CreatureDto>>());
     }
     
     [Test]

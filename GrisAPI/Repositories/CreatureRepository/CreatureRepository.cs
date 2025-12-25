@@ -19,10 +19,14 @@ public sealed class CreatureRepository(ApplicationDbContext context) : ICreature
         return await context.Creatures.FindAsync(id);
     }
 
-    public async Task<List<CreatureDto>> GetAllCreaturesFromUser(int userId)
+    public async Task<List<CreatureDto>> GetFilteredCreatures(CreatureFilterRequest request, int userId)
     {
          return await context.Creatures
             .Where(x => x.Users.Any(u => u.Id == userId))
+            .Where(x => string.IsNullOrWhiteSpace(request.Name) || x.Name.Contains(request.Name))
+            .Skip(request.CurrentPage * request.Quantity)
+            .Take(request.Quantity)
+            .OrderBy(x => x.Name)
             .Select(x => new CreatureDto(x))
             .ToListAsync();
     }
