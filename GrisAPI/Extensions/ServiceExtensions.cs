@@ -1,12 +1,14 @@
 using GrisAPI.DbContext;
 using GrisAPI.Repositories.CardRepository;
 using GrisAPI.Repositories.CreatureRepository;
+using GrisAPI.Repositories.DeckRepository;
 using GrisAPI.Repositories.ExtraDeckRepository;
 using GrisAPI.Repositories.JokerRepository;
 using GrisAPI.Repositories.UserRepository;
 using GrisAPI.Services.AuthenticationService;
 using GrisAPI.Services.CardService;
 using GrisAPI.Services.CreatureService;
+using GrisAPI.Services.DeckService;
 using GrisAPI.Services.ExtraDeckService;
 using GrisAPI.Services.JokerService;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +24,7 @@ public static class ServiceExtensions
         services.AddScoped<IExtraDeckService, ExtraDeckService>();
         services.AddScoped<IJokerService, JokerService>();
         services.AddScoped<ICardService, CardService>();
+        services.AddScoped<IDeckService, DeckService>();
         return services;
     }
     
@@ -32,6 +35,7 @@ public static class ServiceExtensions
         services.AddScoped<IExtraDeckRepository, ExtraDeckRepository>();
         services.AddScoped<IJokerRepository, JokerRepository>();
         services.AddScoped<ICardRepository, CardRepository>();
+        services.AddScoped<IDeckRepository, DeckRepository>();
         return services;
     }
     
