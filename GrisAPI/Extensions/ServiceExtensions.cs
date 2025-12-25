@@ -5,6 +5,7 @@ using GrisAPI.Repositories.ExtraDeckRepository;
 using GrisAPI.Repositories.JokerRepository;
 using GrisAPI.Repositories.UserRepository;
 using GrisAPI.Services.AuthenticationService;
+using GrisAPI.Services.CardService;
 using GrisAPI.Services.CreatureService;
 using GrisAPI.Services.ExtraDeckService;
 using GrisAPI.Services.JokerService;
@@ -20,6 +21,7 @@ public static class ServiceExtensions
         services.AddScoped<ICreatureService, CreatureService>();
         services.AddScoped<IExtraDeckService, ExtraDeckService>();
         services.AddScoped<IJokerService, JokerService>();
+        services.AddScoped<ICardService, CardService>();
         return services;
     }
     

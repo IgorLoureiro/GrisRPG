@@ -36,6 +36,43 @@ public class CreatureRepositoryTests
     }
 
     [Test]
+    public async Task GetFilteredCreatures_validRequest_ReturnsCreatureDtoList()
+    {
+        //Arrange
+        var creatureFilterRequest = new CreatureFilterRequest
+        {
+            Quantity = 10
+        };
+        
+        var user = new User()
+        {
+            Id = 0,
+            Name = "TestUser"
+        };
+
+        var creature = new Creature()
+        {
+            Id = 1,
+            Name = "TestCreature",
+            Users = new List<User>()
+            {
+                user
+            }
+        };
+        
+        _dbContext.Creatures.Add(creature);
+        await _dbContext.SaveChangesAsync();
+        
+        //Act
+        var results = await _sut.GetFilteredCreatures(creatureFilterRequest, user.Id);
+        
+        //Assert
+        Assert.That(results, Is.Not.Null);
+        Assert.That(results.Count, Is.EqualTo(1));
+        Assert.That(results.First().Id, Is.EqualTo(creature.Id));
+    }
+
+    [Test]
     public async Task CreateAsync_ValidCreatureModel_CreatesSuccessfully()
     {
         //Arrange
@@ -72,36 +109,6 @@ public class CreatureRepositoryTests
         //Assert
         Assert.That(result, !Is.Null);
         Assert.That(result.Name, Is.EqualTo(creature.Name));
-    }
-    
-    [Test]
-    public async Task GetAllCreaturesFromUser_ValidUserId_ReturnsCreatureDtoList()
-    {
-        //Arrange
-        const int userId = 1;
-        
-        var creature = new Creature()
-        {
-            Id = 5,
-            Name = "Test",
-            Users = new List<User>()
-            {
-                new User()
-                {
-                    Id = userId,
-                    Name = "TestUser",
-                }
-            }
-        };
-        
-        _dbContext.Creatures.Add(creature);
-        
-        //Act
-        var result = await _sut.GetAllCreaturesFromUser(userId);
-
-        //Assert
-        Assert.That(result, !Is.Null);
-        Assert.That(result, Is.TypeOf<List<CreatureDto>>());
     }
     
     [Test]

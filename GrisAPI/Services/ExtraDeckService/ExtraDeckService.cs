@@ -2,6 +2,7 @@ using GrisAPI.DTOs;
 using GrisAPI.Repositories.CardRepository;
 using GrisAPI.Repositories.ExtraDeckRepository;
 using GrisAPI.Repositories.JokerRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace GrisAPI.Services.ExtraDeckService;
 
@@ -26,7 +27,7 @@ public sealed class ExtraDeckService(
         var cardsIdArray = extraDeck.Cards.Select(x => x.Id).ToArray();
         var jokersIdArray = extraDeck.Jokers.Select(x => x.Id).ToArray();
         
-        var cards = await cardRepository.GetCardsById(cardsIdArray);
+        var cards = await cardRepository.GetCardsById(cardsIdArray).ToListAsync();
         var jokers = await jokerRepository.GetJokersById(jokersIdArray);
 
         extraDeckModel.Cards = cards;

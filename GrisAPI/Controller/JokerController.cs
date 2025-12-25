@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using GrisAPI.DTOs;
 using GrisAPI.Services.JokerService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GrisAPI.Controller;
@@ -8,8 +9,9 @@ namespace GrisAPI.Controller;
 [ApiController]
 [ExcludeFromCodeCoverage]
 [Route("v1/api/[controller]")]
-public class JokerController(IJokerService jokerService) : ControllerBase
+public sealed class JokerController(IJokerService jokerService) : ControllerBase
 {
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<JokerDto>> GetJokerById(int id)
     {
@@ -20,18 +22,21 @@ public class JokerController(IJokerService jokerService) : ControllerBase
         return Ok(results);
     }
 
+    [Authorize]
     [HttpPost("GetJokersById")]
     public async Task<ActionResult<List<JokerDto>>> GetJokersById([FromBody] List<int> ids)
     {
         return Ok(await jokerService.GetJokersById(ids));
     }
 
+    [Authorize]
     [HttpPost("GetJokersByName")]
     public async Task<ActionResult<List<JokerDto>>> GetJokersByName([FromBody] string name)
     {
         return Ok(await jokerService.GetJokersByName(name));
     }
 
+    [Authorize]
     [HttpPost("CreateJoker")]
     public async Task<ActionResult<JokerDto?>> CreateJoker([FromBody] JokerDto joker)
     {
@@ -42,6 +47,7 @@ public class JokerController(IJokerService jokerService) : ControllerBase
         return Ok(new JokerDto(result));
     }
     
+    [Authorize]
     [HttpPut]
     public async Task<ActionResult> UpdateJoker([FromBody] JokerDto joker)
     {
@@ -52,6 +58,7 @@ public class JokerController(IJokerService jokerService) : ControllerBase
         return Ok();
     }
     
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteJoker(int id)
     {

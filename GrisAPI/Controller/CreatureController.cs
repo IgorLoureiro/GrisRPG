@@ -13,6 +13,14 @@ namespace GrisAPI.Controller;
 public sealed class CreatureController(ICreatureService creatureService) : ControllerBase
 {
     [Authorize]
+    [HttpPost("GetFilteredCreatures")]
+    public async Task<ActionResult<CreatureFilterResponse>> GetFilteredCreatures(CreatureFilterRequest filterRequest)
+    {
+        var userId = this.GetUserId();
+        return Ok(await creatureService.GetFilteredCreatures(filterRequest, userId));
+    }
+    
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<CreatureDto>> CreateCreature(string creatureName)
     {
@@ -29,14 +37,6 @@ public sealed class CreatureController(ICreatureService creatureService) : Contr
             return NotFound();
         
         return Ok(creature);
-    }
-    
-    [Authorize]
-    [HttpGet]
-    public async Task<ActionResult<List<CreatureDto>>> GetCreatures()
-    {
-        var userId = this.GetUserId();
-        return Ok(await creatureService.GetAllCreaturesByUserId(userId));
     }
 
     [Authorize]
